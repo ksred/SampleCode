@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/satori/go.uuid"
 )
 
 func TestPullFundsTransactionPost(t *testing.T) {
@@ -144,7 +146,11 @@ func TestPullFundsTransactionPost(t *testing.T) {
 			FeeProgramIndicator: c.feeProgramIndicator,
 		}
 
-		response, err := PullFundsTransactionsPost(request)
+		// Set UUID
+		newUuid := uuid.NewV4()
+		uuid := newUuid.String()
+
+		response, err := PullFundsTransactionsPost(request, uuid)
 		if err != nil {
 			t.Errorf("Error when getting response: %v", err)
 		}

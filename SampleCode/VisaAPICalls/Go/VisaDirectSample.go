@@ -102,12 +102,9 @@ type PullFundsTransactionResponse struct {
 	ErrorMessage          string `json:"errorMessage,omitempty"`        // Optional: string | Length:3
 }
 
-func main() {
-}
-
 // PullFundsTransactions (POST) Resource debits (pulls) funds from a sender's Visa account (in preparation for pushing funds to a recipient's account)
 // by initiating a financial message called an Account Funding Transaction (AFT)
-func PullFundsTransactionsPost(request PullFundsTransactionRequest) (response PullFundsTransactionResponse, err error) {
+func PullFundsTransactionsPost(request PullFundsTransactionRequest, uuid string) (response PullFundsTransactionResponse, err error) {
 	/*
 	   You should log or otherwise retain all the information returned in the PullFundsTransactions response.
 	   Should it be necessary to initiate a ReverseFundsTransactions POST operation, you may need to provide
@@ -117,7 +114,7 @@ func PullFundsTransactionsPost(request PullFundsTransactionRequest) (response Pu
 	if err != nil {
 		return response, err
 	}
-	responseJson, err := Client(USER_ID, USER_PASSWORD, PULL_FUNDS_TRANSACTIONS_URL, "POST", false, body, "0")
+	responseJson, err := Client(USER_ID, USER_PASSWORD, PULL_FUNDS_TRANSACTIONS_URL, "POST", false, body, uuid)
 	if err != nil {
 		return response, err
 	}
@@ -132,12 +129,10 @@ func PullFundsTransactionsPost(request PullFundsTransactionRequest) (response Pu
 func Client(userId string, userPassword string, url string, reqType string, production bool, body []byte, transactionID string) (response []byte, err error) {
 	authHeader := createAuthHeader()
 
-	//fmt.Printf("Body: %v\n", bytes.NewBuffer(body))
 	req, err := http.NewRequest(reqType, url, bytes.NewBuffer(body))
 	req.Header.Set("X-Client-Transaction-ID", transactionID)
 	req.Header.Set("Authorization:Basic ", authHeader)
 	req.Header.Set("Content-Type", "application/json")
-	//req.Header.Set("Accept", "application/json,application/octet-stream")
 	req.Header.Set("Accept", "application/json")
 
 	// Load client cert
