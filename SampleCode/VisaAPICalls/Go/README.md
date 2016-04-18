@@ -29,4 +29,4 @@ To know more about generation of private key (exampled-key.pem) and CSR upload t
 There is a Visa package for Go [currently in development](https://github.com/ksred/visa).
 
 ## Issues
-If there are any issues, please create an issue and tag @ksred.
+If there are any issues, please create an issue and tag [@ksred](https://github.com/ksred).
