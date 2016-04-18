@@ -152,6 +152,7 @@ func TestPullFundsTransactionPost(t *testing.T) {
 
 		// Set user/password
 		SetUserPassword("user_id", "user_password")
+		//SetCertPaths("pubKeyPath", "pvtKeyPath", "caPvtKeyPath")
 
 		response, err := PullFundsTransactionsPost(request, uuid)
 		if err != nil {
