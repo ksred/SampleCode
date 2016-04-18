@@ -11,12 +11,12 @@ import (
 	"net/http"
 )
 
-const USER_ID = ""
-const USER_PASSWORD = ""
+var USER_ID = ""
+var USER_PASSWORD = ""
 
-const SSL_PUBLIC_KEY_PATH = "certs/application.crt"
-const SSL_PRIVATE_KEY_PATH = "certs/application.pem"
-const SSL_CAPRIVATE_KEY_PATH = "certs/VDPCA-SBX.pem"
+var SSL_PUBLIC_KEY_PATH = "certs/application.crt"
+var SSL_PRIVATE_KEY_PATH = "certs/application.pem"
+var SSL_CAPRIVATE_KEY_PATH = "certs/VDPCA-SBX.pem"
 
 const API_SANDBOX = "https://sandbox.api.visa.com"
 const API_PORT = 433
@@ -100,6 +100,17 @@ type PullFundsTransactionResponse struct {
 	ResponseCode          string `json:"responseCode"`                  // string | Length: 1
 	FeeProgramIndicator   string `json:"feeProgramIndicator,omitempty"` // Optional: string | Length:3
 	ErrorMessage          string `json:"errorMessage,omitempty"`        // Optional: string | Length:3
+}
+
+func SetUserPassword(user string, password string) {
+	USER_ID = user
+	USER_PASSWORD = password
+}
+
+func SetCertPaths(pubKeyPath string, pvtKeyPath string, caPvtKeyPath string) {
+	SSL_PUBLIC_KEY_PATH = pubKeyPath
+	SSL_PRIVATE_KEY_PATH = pvtKeyPath
+	SSL_CAPRIVATE_KEY_PATH = caPvtKeyPath
 }
 
 // PullFundsTransactions (POST) Resource debits (pulls) funds from a sender's Visa account (in preparation for pushing funds to a recipient's account)

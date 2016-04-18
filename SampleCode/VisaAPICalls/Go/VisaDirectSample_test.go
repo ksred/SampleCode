@@ -150,13 +150,16 @@ func TestPullFundsTransactionPost(t *testing.T) {
 		newUuid := uuid.NewV4()
 		uuid := newUuid.String()
 
+		// Set user/password
+		SetUserPassword("user_id", "user_password")
+
 		response, err := PullFundsTransactionsPost(request, uuid)
 		if err != nil {
 			t.Errorf("Error when getting response: %v", err)
 		}
 		fmt.Printf("%+v\n", response)
 		// 1. Check type
-		if reflect.TypeOf(response).String() != "visa.PullFundsTransactionResponse" {
+		if reflect.TypeOf(response).String() != "visasample.PullFundsTransactionResponse" {
 			t.Errorf("Return should be of type PullFundsTransactionResponse. Looking for %s, got %s", "visa.PullFundsTransactionResponse", reflect.TypeOf(response).String())
 		}
 	}
